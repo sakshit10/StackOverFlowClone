@@ -15,9 +15,10 @@ import {
   voteQuestion,
 } from "../../actions/question";
 
+const questionsList = useSelector((state) => state.questionsReducer);
 const QuestionsDetails = () => {
   const { id } = useParams();
-  const questionsList = useSelector((state) => state.questionsReducer);
+  console.log(id)
 
   const [Answer, setAnswer] = useState("");
   const Navigate = useNavigate();
@@ -117,7 +118,7 @@ const QuestionsDetails = () => {
                           <button type="button" onClick={handleShare}>
                             Share
                           </button>
-                          {User?.result?._id === question?.userId && (
+                          {User.result._id === question.userId && (
                             <button type="button" onClick={handleDelete}>
                               Delete
                             </button>

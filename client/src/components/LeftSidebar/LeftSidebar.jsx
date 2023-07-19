@@ -8,7 +8,7 @@ const LeftSidebar = () => {
   return (
     <div className='Left-sidebar'>
       <nav className='side-nav'>
-        <NavLink to='/' className='side-nav-Links' activeClassName='active' style={{paddingLeft: "40px"}}>
+        <NavLink to='/' className='side-nav-Links' activeclassname='active' style={{paddingLeft: "40px"}}>
             <p>Home</p>
         </NavLink>
         <div className='side-nav-div'>

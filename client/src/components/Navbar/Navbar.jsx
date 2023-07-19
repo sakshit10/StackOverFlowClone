@@ -1,40 +1,77 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import decode from "jwt-decode";
 
 import logo from "../../assets/logo.png";
-import search from '../../assets/search-solid.svg'
-import Avatar from '../../components/Avatar/Avatar'
-import Button from '../../components/Button/Button'
+import search from "../../assets/search-solid.svg";
+import Avatar from "../../components/Avatar/Avatar";
 import "./Navbar.css";
+import { setCurrentUser } from "../../actions/currentUser";
+import bars from "../../assets/bars-solid.svg";
 
-const Navbar = () => {
+const Navbar = ({ handleSlideIn }) => {
+  const dispatch = useDispatch();
+  var User = useSelector((state) => state.currentUserReducer);
 
-  var User = null
+  useEffect(() => {
+    dispatch(setCurrentUser(JSON.parse(localStorage.getItem("Profile"))));
+  },[dispatch])
+  
 
-    return (
-        <nav>
-            <div className='navbar'>
-                <Link to='/' className='nav-item nav-btn'>
-                    <img src={logo} alt='logo' />
+  return (
+    <nav className="main-nav">
+      <div className="navbar">
+        <button className="slide-in-icon" onClick={() => handleSlideIn()}>
+          <img src={bars} alt="bars" width="15" />
+        </button>
+        <div className="navbar-1">
+          <Link to="/" className="nav-item nav-logo">
+            <img src={logo} alt="logo" />
+          </Link>
+          <Link to="/" className="nav-item nav-btn res-nav">
+            About
+          </Link>
+          <Link to="/" className="nav-item nav-btn res-nav">
+            Products
+          </Link>
+          <Link to="/" className="nav-item nav-btn res-nav">
+            For Teams
+          </Link>
+          <form>
+            <input type="text" placeholder="Search..." />
+            <img src={search} alt="search" width="18" className="search-icon" />
+          </form>
+        </div>
+        <div className="navbar-2">
+          {User === null ? (
+            <Link to="/Auth" className="nav-item nav-links">
+              Log in
+            </Link>
+          ) : (
+            <>
+              <Avatar
+                backgroundColor="#009dff"
+                px="10px"
+                py="7px"
+                borderRadius="50%"
+                color="white"
+              >
+                <Link
+                  style={{ color: "white", textDecoration: "none" }}
+                >
+                  {User.result.name.charAt(0).toUpperCase()}
                 </Link>
-                <Link to='/' className='nav-item nav-btn'>About</Link>
-                <Link to='/' className='nav-item nav-btn'>Products</Link>
-                <Link to='/' className='nav-item nav-btn'>For Teams</Link>
-                <form>
-                  <input type="text" placeholder='Search...' />
-                  <img src={search} alt="search" width="18" />
-                </form>
-                { User === null ?
-                    <Link to='/Auth' className='nav-item nav-links'>Log In</Link> :
-                    <>
-                        <Link to='/User' style={{color: "white", textDecoration: 'none'}}>
-  <Avatar backgroundColor='#009dff' px="10px" py="7px" borderRadius="50%" color='white'>S</Avatar></Link>
-                        <Button className='nav-item nav-links'>Log out</Button>
-                    </>
-              }
-            </div>  
-        </nav>
-      )
-}
+              </Avatar>
+              <button className="nav-item nav-links">
+                Log out
+              </button>
+            </>
+          )}
+        </div>
+      </div>
+    </nav>
+  );
+};
 
-export default Navbar
+export default Navbar;
