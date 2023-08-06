@@ -32,17 +32,17 @@ const UserProfile = ({ slideIn, handleSlideIn }) => {
                 px="40px"
                 py="30px"
               >
-                {currentProfile?.name.charAt(0).toUpperCase()}
+                {currentProfile.name.charAt(0).toUpperCase()}
               </Avatar>
               <div className="user-name">
-                <h1>{currentProfile?.name}</h1>
+                <h1>{currentProfile.name}</h1>
                 <p>
                   <FontAwesomeIcon icon={faBirthdayCake} /> Joined{" "}
-                  {moment(currentProfile?.joinedOn).fromNow()}
+                  {moment(currentProfile.joinedOn).fromNow()}
                 </p>
               </div>
             </div>
-            {currentUser?.result._id === id && (
+            {currentUser.result._id === id && (
               <button
                 type="button"
                 onClick={() => setSwitch(true)}

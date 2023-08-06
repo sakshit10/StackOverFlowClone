@@ -5,3 +5,8 @@ export const setCurrentUser = (data) => {
     };
   }
   
+  export const logoutUser = () => {
+    return {
+      type: "LOGOUT",
+    };
+  };

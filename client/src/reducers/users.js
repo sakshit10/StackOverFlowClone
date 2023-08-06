@@ -1,9 +1,14 @@
-const UsersReducer = (state, action) => {
+const usersReducer = (states = [], action) => {
     switch (action.type) {
       case 'FETCH_USERS':
         return action.payload;
-      // Add other cases if needed
+        case "UPDATE_CURRENT_USER":
+      return states.map((state) =>
+        state._id === action.payload._id ? action.payload : state
+      );
       default:
-        return state;
+        return states;
     }
   };
+
+  export default usersReducer;

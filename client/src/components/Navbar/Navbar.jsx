@@ -12,12 +12,25 @@ import bars from "../../assets/bars-solid.svg";
 
 const Navbar = ({ handleSlideIn }) => {
   const dispatch = useDispatch();
-  var User = useSelector((state) => state.currentUserReducer);
+  const User = useSelector((state) => state.currentUserReducer);
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    dispatch({ type: "LOGOUT" }); 
+    dispatch(setCurrentUser(null)); 
+    navigate("/")
+  }
 
   useEffect(() => {
+    const token = User?.token;
+    if (token) {
+      const decodedToken = decode(token);
+      if (decodedToken.exp * 1000 < new Date().getTime()) {
+        handleLogout();
+      }
+    }
     dispatch(setCurrentUser(JSON.parse(localStorage.getItem("Profile"))));
-  },[dispatch])
-  
+  }, [User?.token, dispatch]);
 
   return (
     <nav className="main-nav">
@@ -57,13 +70,13 @@ const Navbar = ({ handleSlideIn }) => {
                 borderRadius="50%"
                 color="white"
               >
-                <Link
-                  style={{ color: "white", textDecoration: "none" }}
-                >
-                  {User.result.name.charAt(0).toUpperCase()}
+                <Link 
+                 to={`/Users/${User?.result?._id}`}
+                 style={{ color: "white", textDecoration: "none" }}>
+                  {User?.result?.name?.charAt(0)?.toUpperCase()}
                 </Link>
               </Avatar>
-              <button className="nav-item nav-links">
+              <button className="nav-item nav-links" onClick={handleLogout}>
                 Log out
               </button>
             </>

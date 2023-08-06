@@ -3,10 +3,8 @@ import { useParams, Link, useNavigate, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import moment from "moment";
 import copy from "copy-to-clipboard";
-
 import upvote from "../../assets/sort-up.svg";
 import downvote from "../../assets/sort-down.svg";
-import "./Questions.css";
 import Avatar from "../../components/Avatar/Avatar";
 import DisplayAnswer from "./DisplayAnswer";
 import {
@@ -14,17 +12,21 @@ import {
   deleteQuestion,
   voteQuestion,
 } from "../../actions/question";
+import "./Questions.css";
 
-const questionsList = useSelector((state) => state.questionsReducer);
 const QuestionsDetails = () => {
   const { id } = useParams();
-  console.log(id)
+  console.log(id);
 
-  const [Answer, setAnswer] = useState("");
   const Navigate = useNavigate();
   const dispatch = useDispatch();
-  const User = useSelector((state) => state.currentUserReducer);
   const location = useLocation();
+
+  const questionsList = useSelector((state) => state.questionsReducer);
+  const User = useSelector((state) => state.currentUserReducer);
+
+  const [Answer, setAnswer] = useState("");
+
   const url = "http://localhost:3000";
 
   const handlePostAns = (e, answerLength) => {

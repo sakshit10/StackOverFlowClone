@@ -1,6 +1,7 @@
 import express from "express";
 
-import { AskQuestion } from "../controllers/Questions"
+import { AskQuestion, deleteQuestion, getAllQuestions, voteQuestion } from "../controllers/Questions.js";
+import auth from "../middlewares/auth.js"
 
 const router = express.Router();
 

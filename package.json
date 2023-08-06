@@ -7,5 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Sakshi",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "fortawesome": "^0.0.1-security",
+    "package": "^1.0.1"
+  }
 }
